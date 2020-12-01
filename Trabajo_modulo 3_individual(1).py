@@ -3,16 +3,17 @@
 
 # Se desarrolla el ejercicio primero en pandas y luego como un conjunto de listas.
 
-# In[233]:
+# In[19]:
 
 
 import pandas as pd
 import csv
 import statistics
 from tabulate import tabulate
+import urllib
 
 
-# In[162]:
+# In[20]:
 
 
 #PUNTO 2 Y 3
@@ -24,7 +25,7 @@ with open('data/iris.data', 'r') as file:
     datos = list(reader)
 
 
-# In[164]:
+# In[21]:
 
 
 with open('data/iris.data', "r") as archivo:
@@ -36,59 +37,59 @@ with open('data/iris.data', "r") as archivo:
     
 
 
-# In[165]:
+# In[22]:
 
 
 df[["largo_sepalo", "ancho_sepalo", "largo_petalo", "ancho_petalo"]].describe()
 
 
-# In[166]:
+# In[23]:
 
 
 columnas = df.columns.drop('especie')
 df[columnas] = df[columnas].apply(pd.to_numeric, errors='coerce')
 
 
-# In[167]:
+# In[24]:
 
 
 df.describe()
 
 
-# In[168]:
+# In[25]:
 
 
 #PUNTO 5: se imprime el promedio de las cuatro primeras columnas
 df.mean()
 
 
-# In[169]:
+# In[26]:
 
 
 df.describe()
 
 
-# In[170]:
+# In[27]:
 
 
 df.groupby(['especie']).mean()
 
 
-# In[171]:
+# In[28]:
 
 
 #PUNTO 6: Hay 50 casos por cada especie.
 df.groupby(['especie']).count()
 
 
-# In[136]:
+# In[29]:
 
 
 #PUNTO 6: en total hay 150 casos
 df["especie"].count()
 
 
-# In[250]:
+# In[30]:
 
 
 import csv
@@ -102,13 +103,13 @@ with open('data/iris.data', 'r') as file:
 print(len(lista))
 
 
-# In[239]:
+# In[31]:
 
 
 print(tabulate(lista))
 
 
-# In[260]:
+# In[32]:
 
 
 print(len(lista))
@@ -116,13 +117,7 @@ lista.pop(-1)
 len(lista)
 
 
-# In[263]:
-
-
-lista[151]
-
-
-# In[279]:
+# In[33]:
 
 
 #PUNTO 5: VERSION CON LISTAS.
@@ -137,7 +132,8 @@ def promedio(especie, variable, lista):
             contador = contador + 1
             acumulador = acumulador + float(elemento[indice_variable])
     return round(acumulador/contador, 2)
-
+especies = ["Iris-versicolor", "Iris-setosa", "Iris-virginica"]
+variables = ['largo_sepalo', 'ancho_sepalo', 'largo_petalo', "ancho_petalo", "especie"]
 for especie in especies:
     print("El promedio de " 
       + variables[0] 
@@ -170,7 +166,7 @@ for especie in especies:
 
 
 
-# In[300]:
+# In[34]:
 
 
 #PUNTO 7: 
@@ -183,24 +179,37 @@ for indice in range(0,101):
         lista[indice] = [0, 0, 0, 0, "N/A"]
 
 
-# In[306]:
+# In[35]:
 
 
 print(lista[1], lista[10], lista[30], lista[100])
 
 
-# In[307]:
+# In[36]:
 
 
 #Punto 8:
 len(lista)
 
 
-# In[314]:
+# In[37]:
 
 
 #Guardar archivo
 with open("iris_editado.csv", "w") as f:
   writer = csv.writer(f)
   writer.writerows(zip(lista))
+
+
+# In[38]:
+
+
+csv = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data")
+print(csv)                                                                                                
+
+
+# In[ ]:
+
+
+
 
